@@ -1,0 +1,80 @@
+<h1>Dodaj / Izmeni postojecu fotku</h1>
+
+<form class="form-horizontal" ng-controller="FotkaController"ng-init="initFotka()" ng-submit="uploadFile()">
+	<div class="form-group">
+		<div class="col-md-2">
+			<label>Datum fotografisanja</label>
+		</div>
+		<div class="col-md-6">
+			<input class="form-control" type="date"	ng-model="fotka.datumNastankaFotografije" />
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-md-2">
+			<label>Datum slanja fotografije</label>
+		</div>
+		<div class="col-md-6">
+			<input ng-disabled="true" class="form-control" type="date" ng-model="todayDate" />
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-md-2">
+			<label>Događaj fotografisanja</label>
+		</div>
+		<div class="col-md-6">
+			<input class="form-control" type="text"
+				ng-model="fotka.dogadjajFotografisanja" />
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-md-2">
+			<label>Ime fotografa</label>
+		</div>
+		<div class="col-md-6">
+			<input class="form-control" type="text" ng-model="fotka.imeFotografa" />
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-md-2">
+			<label>Mesto fotografisanja</label>
+		</div>
+		<div class="col-md-6">
+			<input class="form-control" type="text"
+				ng-model="fotka.mestoFotografisanja" />
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-md-2">
+			<label>Korisnik koji je poslao fotku</label>
+		</div>
+		<div class="col-md-6">
+			<input class="form-control" type="text"
+				ng-model="fotka.userKojiJePostavioFotografiju" />
+		</div>
+	</div>
+	<div>
+	
+	<div class="form-group">
+		<div class="col-md-2">
+			<label>Fotka</label>
+		</div>
+		<div class="col-md-6">
+		    <input class="btn btn-default" type="file" name="file" ng-model="document.fileInput" id="file"  />
+		</div>
+	</div>
+
+	<div class="col-md-4 col-md-offset-4">
+		<button class="btn btn-default" ng-click="saveFotka()">Snimi
+			Fotku</button>
+	</div>
+	
+
+
+
+</form>
+
+
+
+

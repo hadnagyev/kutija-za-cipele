@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html ng-app="kutijaApp">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>KUTIJA</title>
+
+<!-- Bootstrap -->
+<link href="/static/css/bootstrap.css" rel="stylesheet">
+<link href="/static/css/bootstrap-theme.css" rel="stylesheet">
+<link href="/static/css/main.css" rel="stylesheet">
+
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="/static/js/jquery-2.1.1.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/static/js/bootstrap.js"></script>
+
+<!-- AngularJS -->
+<script src="/static/js/angular.js"></script>
+<script src="/static/js/angular-route.js"></script>
+        <script src="/static/js/app.js"></script>
+        <script src="/static/js/app.controllers.js"></script>
+        <script src="/static/js/app.routes.js"></script>
+        <script src="/static/js/app.services.js"></script>
+        <script src="/static/js/app.directives.js"></script>
+        <script src="/static/js/upload/ng-file-upload-shim.min.js"></script> <!-- for no html5 browsers support -->
+		<script src="/static/js/upload/ng-file-upload.min.js"></script>
+</head>
+<body>
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="/#/">Naslovna | </a> 
+				<a class="navbar-brand"	href="/#/fotke">Fotka | </a>
+				<a class="navbar-brand"	href="/#/sveFotke">Sve Fotke | </a>
+				<a class="navbar-brand"	href="/#/dodajNovuFotku">Dodaj Novu Fotku | </a>
+
+
+			</div>
+		</div>
+	</div>
+	<div class="jumbotron">
+
+		<div class="container text-center">
+			<img src="static/jpg/logo.jpg" height="200" width="200"style="float: left" /><h1>Kutija za cipele</h1>
+
+		</div>
+	</div>
+	<div class="container" ng-view></div>
+
+</body>
+</html>
