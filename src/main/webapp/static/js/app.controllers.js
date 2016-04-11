@@ -9,7 +9,7 @@ kutijaApp
 					$scope.hasNextFotka = false;
 					$scope.todayDate = new Date();
 					$scope.previousFotka = -1;
-					$scope.fotka = {};
+
 
 					// Uzima jednu fotku za prikaz na stranici Fotke i proverava
 					// da li postoji

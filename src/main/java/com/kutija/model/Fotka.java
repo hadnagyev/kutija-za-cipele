@@ -106,6 +106,14 @@ public class Fotka {
 		this.fotografijaFajl = fotografijaFajl;
 	}
 
+	public String getVlasnikFotografije() {
+		return vlasnikFotografije;
+	}
+
+	public void setVlasnikFotografije(String vlasnikFotografije) {
+		this.vlasnikFotografije = vlasnikFotografije;
+	}
+
 
 
 }
