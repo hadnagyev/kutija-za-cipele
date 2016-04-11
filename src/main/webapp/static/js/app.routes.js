@@ -17,6 +17,10 @@ kutijaApp.config(['$routeProvider', function($routeProvider) {
 		templateUrl: 'static/html/sveFotke.html',
 		controller: 'FotkaController'
 	})
+		.when('/fotkaFullScreen',{
+		templateUrl: 'static/html/fotkaFullScreen.html',
+		controller: 'FotkaController'
+	})
 	.when('/dodajNovuFotku',{
 		templateUrl: 'static/html/AddEditFotka.html',
 		controller: 'FotkaController'

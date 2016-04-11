@@ -3,12 +3,13 @@ var kutijaApp = angular.module('kutijaApp.controllers', [ 'ngFileUpload' ]);
 kutijaApp
 		.controller(
 				'FotkaController',
-				function($http,$scope, $location, $filter, $routeParams,
+				function($http,$scope, $location, $filter, $routeParams,$anchorScroll,
 						fotkaRestService) {
 					$scope.nextFotka = 11;
 					$scope.hasNextFotka = false;
 					$scope.todayDate = new Date();
 					$scope.previousFotka = -1;
+					$scope.fotka = {};
 
 					// Uzima jednu fotku za prikaz na stranici Fotke i proverava
 					// da li postoji
@@ -29,7 +30,7 @@ kutijaApp
 							fotkaRestService.getFotka($routeParams.id).success(
 									function(data) {
 										$scope.fotka = data;
-
+										$scope.fotka.fotkaFullScreen = 350;
 									})
 							// ako dolazi bez parametara u url linku znaci da je
 							// neko kliknuo na dugme iz bara
@@ -42,10 +43,11 @@ kutijaApp
 												$scope.hasNextFotka = headers('has-next-fotka');
 												$scope.hasPreviousFotka = headers('has-previous-fotka');
 												$scope.nextFotka = $scope.fotka.id;
-
+												$scope.fotka.fotkaFullScreen = 350;
 											}).error(function() {
 									});
 						}
+						
 					}
 
 					$scope.getSveFotke = function() {
@@ -81,6 +83,8 @@ kutijaApp
 
 								});
 					};
+					
+
 					$scope.uploadFile = function() {
 						var formData = new FormData();
 						formData.append("file", file.files[0]);

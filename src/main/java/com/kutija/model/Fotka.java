@@ -26,6 +26,9 @@ public class Fotka {
 	@Column(name="imeFotografa")
 	private String imeFotografa;
 	
+	@Column(name="vlasnikFotografije")
+	private String vlasnikFotografije;
+	
 	@Column(name="datumNastankaFotografije")
 	private Date datumNastankaFotografije;
 	
