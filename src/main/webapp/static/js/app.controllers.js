@@ -30,7 +30,8 @@ kutijaApp
 							fotkaRestService.getFotka($routeParams.id).success(
 									function(data) {
 										$scope.fotka = data;
-										$scope.fotka.fotkaFullScreen = 350;
+										$scope.fotka.fotkaFullScreen = 500;
+										
 									})
 							// ako dolazi bez parametara u url linku znaci da je
 							// neko kliknuo na dugme iz bara
@@ -43,7 +44,8 @@ kutijaApp
 												$scope.hasNextFotka = headers('has-next-fotka');
 												$scope.hasPreviousFotka = headers('has-previous-fotka');
 												$scope.nextFotka = $scope.fotka.id;
-												$scope.fotka.fotkaFullScreen = 350;
+												$scope.fotka.fotkaFullScreen = 500;
+												
 											}).error(function() {
 									});
 						}

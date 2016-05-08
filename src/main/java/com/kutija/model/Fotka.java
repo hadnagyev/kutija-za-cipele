@@ -35,6 +35,12 @@ public class Fotka {
 	@Column(name="mestoFotografisanja")
 	private String mestoFotografisanja;
 	
+	@Column(name="blizeMestoFotografisanja")
+	private String blizeMestoFotografisanja;
+	
+	@Column(name="brojKuceFotografisanja")
+	private String brojKuceFotografisanja;
+	
 	@Column(name="dogadjajFotografisanja")
 	private String dogadjajFotografisanja;
 	
@@ -112,6 +118,22 @@ public class Fotka {
 
 	public void setVlasnikFotografije(String vlasnikFotografije) {
 		this.vlasnikFotografije = vlasnikFotografije;
+	}
+
+	public String getBlizeMestoFotografisanja() {
+		return blizeMestoFotografisanja;
+	}
+
+	public void setBlizeMestoFotografisanja(String blizeMestoFotografisanja) {
+		this.blizeMestoFotografisanja = blizeMestoFotografisanja;
+	}
+
+	public String getBrojKuceFotografisanja() {
+		return brojKuceFotografisanja;
+	}
+
+	public void setBrojKuceFotografisanja(String brojKuceFotografisanja) {
+		this.brojKuceFotografisanja = brojKuceFotografisanja;
 	}
 
 

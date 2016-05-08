@@ -27,17 +27,14 @@ import com.kutija.service.FotkaService;
 public class ApiFotkeController {
 	@Autowired
 	private FotkaService fotkaService;
-	//GET FOTKA
+
+	// GET FOTKA
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<Fotka> getFotka(
-			@RequestParam(value = "currentFotka", required = true) Long id,
+	public ResponseEntity<Fotka> getFotka(@RequestParam(value = "currentFotka", required = true) Long id,
 			@RequestParam(value = "previousFotka", required = true) int previous) {
 		Fotka fotka = null;
 		int hasNextFotka = -1;
 		int hasPreviousFotka = -1;
-
-		List<Fotka> fotke = new ArrayList<Fotka>();
-		fotke = fotkaService.findAll();
 
 		if (previous == 1) {
 			id--;
@@ -47,7 +44,7 @@ public class ApiFotkeController {
 		}
 		fotka = fotkaService.findOne(id);
 
-		if (fotka == null) {
+		while (fotka == null) {
 			if (previous == 1) {
 				fotka = fotkaService.findPreviousFotka(id);
 			} else {
@@ -55,9 +52,11 @@ public class ApiFotkeController {
 			}
 		}
 
+		List<Fotka> fotke = new ArrayList<Fotka>();
+		fotke = fotkaService.findAll();
 		// ako je id trenutne fotke isti kao id poslednje onda saljem hasnext =
 		// 0 pa je dugme sledeca fotka disabled
-		if (fotke.get((fotkaService.findAll().size()) - 1).getId().equals(fotka.getId())) {
+		if (fotke.get((fotke.size()) - 1).getId().equals(fotka.getId())) {
 			hasNextFotka = 0;
 		}
 		// ako je id trenutne fotke isti kao id prve onda hasprevious=0, dugme
@@ -71,29 +70,27 @@ public class ApiFotkeController {
 		httpHeaders.add("has-previous-fotka", "" + hasPreviousFotka);
 		return new ResponseEntity<>(fotka, httpHeaders, HttpStatus.OK);
 	}
-	
-	//GET FOTKA BY ID
+
+	// GET FOTKA BY ID
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Fotka> getFotkaId(@PathVariable Long id) {
 		Fotka fotka = fotkaService.findOne(id);
-//		System.out.println(fotka.toString());
+		// System.out.println(fotka.toString());
 		return new ResponseEntity<>(fotka, HttpStatus.OK);
 	}
 
 	// save uploaded photo to folder
 	@RequestMapping(method = RequestMethod.POST, consumes = "multipart/form-data")
-	public ResponseEntity<Fotka> saveFotka(
-			@RequestBody MultipartFile file)
-			{
-		
+	public ResponseEntity<Fotka> saveFotka(@RequestBody MultipartFile file) {
+
 		if (file != null) {
 			String name = file.getOriginalFilename();
 			System.out.println(name);
 			try {
-				BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(new File("src/main/webapp/fotke/"+name)));
+				BufferedOutputStream stream = new BufferedOutputStream(
+						new FileOutputStream(new File("src/main/webapp/fotke/" + name)));
 				FileCopyUtils.copy(file.getInputStream(), stream);
 				stream.close();
-				
 
 			} catch (Exception e) {
 
@@ -102,18 +99,15 @@ public class ApiFotkeController {
 		}
 		return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	
-	//save uploaded photo data to sql database
-	@RequestMapping(value="/data",method= RequestMethod.POST, consumes="application/JSON")
-	public ResponseEntity<Fotka> saveFotkaData(
-			@RequestBody Fotka fotka){
-		fotka.setFotografijaFajl("fotke/"+fotka.getFotografijaFajl());
+
+	// save uploaded photo data to sql database
+	@RequestMapping(value = "/data", method = RequestMethod.POST, consumes = "application/JSON")
+	public ResponseEntity<Fotka> saveFotkaData(@RequestBody Fotka fotka) {
+		fotka.setFotografijaFajl("fotke/" + fotka.getFotografijaFajl());
 		fotkaService.save(fotka);
-		
-	return new ResponseEntity<Fotka>(fotka, HttpStatus.OK);
+
+		return new ResponseEntity<Fotka>(fotka, HttpStatus.OK);
 	}
-	
-			
 
 	// get all photos
 	@RequestMapping(value = "/sve", method = RequestMethod.GET)
@@ -124,15 +118,13 @@ public class ApiFotkeController {
 
 		return new ResponseEntity<List<Fotka>>(sveFotke, HttpStatus.OK);
 	}
-	
-	//delete photo
-	@RequestMapping(value="/delete/{id}", method=RequestMethod.POST)
-	public ResponseEntity<Fotka> deleteFotka(@PathVariable Long id){
+
+	// delete photo
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+	public ResponseEntity<Fotka> deleteFotka(@PathVariable Long id) {
 		fotkaService.delete(id);
-		
+
 		return null;
 	}
-	
-
 
 }
