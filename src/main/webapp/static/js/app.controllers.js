@@ -25,17 +25,20 @@ kutijaApp
 						request_params['currentFotka'] = id;
 						request_params['previousFotka'] = $scope.previousFotka;
 						// ako dolazi sa stranice sa svim fotkama
-						if ($routeParams && $routeParams.id) {
+//						if ($routeParams && $routeParams.id) {
+//							
+//							fotkaRestService.getFotka($routeParams.id).success(
+//									function(data) {
+//										$scope.fotka = data;
+//										$scope.fotka.fotkaFullScreen = 500;
+//										
+//									})
+//							// ako dolazi bez parametara u url linku znaci da je
+//							// neko kliknuo na dugme iz bara
+//						} else {
 
-							fotkaRestService.getFotka($routeParams.id).success(
-									function(data) {
-										$scope.fotka = data;
-										$scope.fotka.fotkaFullScreen = 500;
-										
-									})
-							// ako dolazi bez parametara u url linku znaci da je
-							// neko kliknuo na dugme iz bara
-						} else {
+							
+							
 							fotkaRestService
 									.getFotke(request_params)
 									.success(
@@ -44,13 +47,16 @@ kutijaApp
 												$scope.hasNextFotka = headers('has-next-fotka');
 												$scope.hasPreviousFotka = headers('has-previous-fotka');
 												$scope.nextFotka = $scope.fotka.id;
+												if ($routeParams && $routeParams.id){
+													$scope.fotka.id = $routeParams.id;
+												}
 												$scope.fotka.fotkaFullScreen = 500;
 												
 											}).error(function() {
 									});
 						}
 						
-					}
+					
 
 					$scope.getSveFotke = function() {
 

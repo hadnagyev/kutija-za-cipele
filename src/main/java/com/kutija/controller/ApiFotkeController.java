@@ -31,16 +31,18 @@ public class ApiFotkeController {
 	// GET FOTKA
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<Fotka> getFotka(@RequestParam(value = "currentFotka", required = true) Long id,
-			@RequestParam(value = "previousFotka", required = true) int previous) {
+			@RequestParam(value = "previousFotka", required = false) Integer previous) {
 		Fotka fotka = null;
 		int hasNextFotka = -1;
 		int hasPreviousFotka = -1;
 
-		if (previous == 1) {
-			id--;
-		} else {
-			id++;
+		if (previous != null) {
+			if (previous == 1) {
+				id--;
+			} else {
+				id++;
 
+			}
 		}
 		fotka = fotkaService.findOne(id);
 
