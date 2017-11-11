@@ -1,2 +1,4 @@
 # kutija-za-cipele
-java-angularJS 
+project made for uploading photos, still in progress
+
+java back and angularjs on front
