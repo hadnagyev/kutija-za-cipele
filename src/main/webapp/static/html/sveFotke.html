@@ -1,0 +1,7 @@
+<div class="row" ng-init="getSveFotke()">
+	<div ng-repeat="fotka in sveFotke" class="col-md-3 form-vertical" style="padding:10px">
+		<a href="#/fotke/{{ fotka.id }}"> 
+		<img ng-src="{{ fotka.fotografijaFajl }}" height="150" style="max-width: 250px; border-radius: 15px; padding: 3px; background: #ccccb3;">
+		</a>
+	</div>
+</div>
