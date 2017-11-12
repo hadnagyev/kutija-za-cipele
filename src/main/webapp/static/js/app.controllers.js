@@ -23,6 +23,11 @@ kutijaApp
 
 						var request_params = {};
 						request_params['currentFotka'] = id;
+						if ($routeParams && $routeParams.id){
+							request_params['currentFotka'] = id = $routeParams.id;
+							
+						}
+						
 						request_params['previousFotka'] = $scope.previousFotka;
 						// ako dolazi sa stranice sa svim fotkama
 //						if ($routeParams && $routeParams.id) {
@@ -47,9 +52,7 @@ kutijaApp
 												$scope.hasNextFotka = headers('has-next-fotka');
 												$scope.hasPreviousFotka = headers('has-previous-fotka');
 												$scope.nextFotka = $scope.fotka.id;
-												if ($routeParams && $routeParams.id){
-													$scope.fotka.id = $routeParams.id;
-												}
+
 												$scope.fotka.fotkaFullScreen = 500;
 												
 											}).error(function() {

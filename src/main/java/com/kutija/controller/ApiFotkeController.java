@@ -36,7 +36,7 @@ public class ApiFotkeController {
 		int hasNextFotka = -1;
 		int hasPreviousFotka = -1;
 
-		if (previous != null) {
+		if (previous != -1) {
 			if (previous == 1) {
 				id--;
 			} else {
