@@ -1,0 +1,99 @@
+
+<div ng-show="fotka.fotkaFullScreen==500?true:false" style="float: left" class="col-md-4 form-horizontal" ng-init="getFotka()">
+	<h1>Fotke</h1>
+	<div class="form-group">
+		<div class="col-md-5">
+			<label>Datum fotografisanja</label>
+		</div>
+		<div class="col-md-7">
+			<input class="form-control" type="text" ng-value="fotka.datumNastankaFotografije| date:'dd/MM/yyyy'" />
+
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-md-5">
+			<label>Datum slanja fotografije</label>
+		</div>
+		<div class="col-md-7">
+			<input class="form-control" type="text" ng-value="fotka.datumSlanjaFotografije | date:'dd/MM/yyyy'">
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-md-5">
+			<label>Događaj fotografisanja</label>
+		</div>
+		<div class="col-md-7">
+			<textarea rows="8" class="form-control" ng-model="fotka.dogadjajFotografisanja" />
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-md-5">
+			<label>ime_fotografa</label>
+		</div>
+		<div class="col-md-7">
+			<input class="form-control" ng-model="fotka.imeFotografa">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-md-5">
+			<label>Vlasnik fotografije</label>
+		</div>
+		<div class="col-md-7">
+			<input class="form-control" ng-model="fotka.vlasnikFotografije">
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-md-5">
+			<label>mesto_fotografisanja</label>
+		</div>
+		<div class="col-md-7">
+			<input class="form-control" ng-model="fotka.mestoFotografisanja">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-md-5">
+			<label>Blize mesto fotografisanja</label>
+		</div>
+		<div class="col-md-7">
+			<input class="form-control" ng-model="fotka.blizeMestoFotografisanja">
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="col-md-5">
+			<label>Broj kuce fotografisanja</label>
+		</div>
+		<div class="col-md-7">
+			<input class="form-control" ng-model="fotka.brojKuceFotografisanja">
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-md-5">
+			<label>Korisnik koji je poslao fotku</label>
+		</div>
+		<div class="col-md-7">
+			<input class="form-control" ng-model="fotka.userKojiJePostavioFotografiju">
+		</div>
+	</div>
+
+</div>
+<div style="float: left" class="col-md-6 form-vertical">
+	<img ng-click="fotkaToRight();fotka.fotkaFullScreen==500?fotka.fotkaFullScreen=1700 : fotka.fotkaFullScreen =500" ng-show="fotka.fotografijaFajl" ng-src="{{ fotka.fotografijaFajl }}"
+		width="{{ fotka.fotkaFullScreen }}">
+</div>
+</table>
+<div>
+	<button class="btn btn-danger" ng-click="deleteFotka(fotka.id)">Obrisi Fotku</button>
+	obrisace iz baze, ali sama fotka ostaje u folderu!Samo dok se testira, posle ce samo da je oznaci kao da je obrisana i sakrije
+</div>
+<div ng-show="fotka.fotkaFullScreen==500?true:false">
+	<button class="btn btn-default" ng-disabled="hasPreviousFotka==0" ng-click="previousFotka=1;getFotka(fotka.id)">Prethodna fotka</button>
+	<button class="btn btn-default" ng-disabled="hasNextFotka==0" ng-click="previousFotka=0;getFotka(fotka.id)">Sledeća fotka</button>
+
+
+</div>
+
+
