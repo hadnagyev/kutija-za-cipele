@@ -14,7 +14,4 @@ public interface FotkaRepository extends JpaRepository<Fotka, Long> {
 	Fotka findFirstByIdGreaterThan(Long id);
 	
 	List<Fotka> findLastByIdLessThan(Long id);
-
-
-
 }
