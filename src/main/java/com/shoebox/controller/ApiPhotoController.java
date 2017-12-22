@@ -28,7 +28,7 @@ public class ApiPhotoController {
 	@Autowired
 	private PhotoService photoService;
 
-	// GET FOTKA
+	// GET photo
 	@RequestMapping(method = RequestMethod.GET)
 	public ResponseEntity<Photo> getFotka(@RequestParam(value = "currentFotka", required = true) Long id,
 			@RequestParam(value = "previousFotka", required = false) Integer previous) {
@@ -73,7 +73,7 @@ public class ApiPhotoController {
 		return new ResponseEntity<>(photo, httpHeaders, HttpStatus.OK);
 	}
 
-	// GET FOTKA BY ID
+	// GET Photo BY ID
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Photo> getFotkaId(@PathVariable Long id) {
 		Photo fotka = photoService.findOne(id);
