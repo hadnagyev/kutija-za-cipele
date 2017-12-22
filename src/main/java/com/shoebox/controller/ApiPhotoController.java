@@ -1,4 +1,4 @@
-package com.kutija.controller;
+package com.shoebox.controller;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -19,22 +19,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.kutija.model.Fotka;
-import com.kutija.service.FotkaService;
+import com.shoebox.model.Photo;
+import com.shoebox.service.PhotoService;
 
 @RestController
 @RequestMapping(value = "api/fotke")
-public class ApiFotkeController {
+public class ApiPhotoController {
 	@Autowired
-	private FotkaService fotkaService;
+	private PhotoService photoService;
 
 	// GET FOTKA
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<Fotka> getFotka(@RequestParam(value = "currentFotka", required = true) Long id,
+	public ResponseEntity<Photo> getFotka(@RequestParam(value = "currentFotka", required = true) Long id,
 			@RequestParam(value = "previousFotka", required = false) Integer previous) {
-		Fotka fotka = null;
-		int hasNextFotka = -1;
-		int hasPreviousFotka = -1;
+		Photo photo = null;
+		int hasNextPhoto = -1;
+		int hasPreviousPhoto = -1;
 
 		if (previous != -1) {
 			if (previous == 1) {
@@ -44,46 +44,46 @@ public class ApiFotkeController {
 
 			}
 		}
-		fotka = fotkaService.findOne(id);
+		photo = photoService.findOne(id);
 
-		while (fotka == null) {
+		while (photo == null) {
 			if (previous == 1) {
-				fotka = fotkaService.findPreviousFotka(id);
+				photo = photoService.findPreviousPhoto(id);
 			} else {
-				fotka = fotkaService.findNextFotka(id);
+				photo = photoService.findNextPhoto(id);
 			}
 		}
 
-		List<Fotka> fotke = new ArrayList<Fotka>();
-		fotke = fotkaService.findAll();
-		// ako je id trenutne fotke isti kao id poslednje onda saljem hasnext =
-		// 0 pa je dugme sledeca fotka disabled
-		if (fotke.get((fotke.size()) - 1).getId().equals(fotka.getId())) {
-			hasNextFotka = 0;
+		List<Photo> fotke = new ArrayList<Photo>();
+		fotke = photoService.findAll();
+		// if the id of current photo is same as id of the last one sending hasnext=
+		// 0 so next photo is disabled
+		if (fotke.get((fotke.size()) - 1).getId().equals(photo.getId())) {
+			hasNextPhoto = 0;
 		}
-		// ako je id trenutne fotke isti kao id prve onda hasprevious=0, dugme
-		// prethodna fotka disabled
-		if (fotka.getId().equals(fotke.get(0).getId())) {
-			hasPreviousFotka = 0;
+		// if id of current is same as id of previous, button hasprevious=0
+		// previous photo disabled
+		if (photo.getId().equals(fotke.get(0).getId())) {
+			hasPreviousPhoto = 0;
 		}
 
 		HttpHeaders httpHeaders = new HttpHeaders();
-		httpHeaders.add("has-next-fotka", "" + hasNextFotka);
-		httpHeaders.add("has-previous-fotka", "" + hasPreviousFotka);
-		return new ResponseEntity<>(fotka, httpHeaders, HttpStatus.OK);
+		httpHeaders.add("has-next-fotka", "" + hasNextPhoto);
+		httpHeaders.add("has-previous-fotka", "" + hasPreviousPhoto);
+		return new ResponseEntity<>(photo, httpHeaders, HttpStatus.OK);
 	}
 
 	// GET FOTKA BY ID
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Fotka> getFotkaId(@PathVariable Long id) {
-		Fotka fotka = fotkaService.findOne(id);
-		// System.out.println(fotka.toString());
+	public ResponseEntity<Photo> getFotkaId(@PathVariable Long id) {
+		Photo fotka = photoService.findOne(id);
+
 		return new ResponseEntity<>(fotka, HttpStatus.OK);
 	}
 
 	// save uploaded photo to folder
 	@RequestMapping(method = RequestMethod.POST, consumes = "multipart/form-data")
-	public ResponseEntity<Fotka> saveFotka(@RequestBody MultipartFile file) {
+	public ResponseEntity<Photo> savePhoto(@RequestBody MultipartFile file) {
 
 		if (file != null) {
 			String name = file.getOriginalFilename();
@@ -104,27 +104,27 @@ public class ApiFotkeController {
 
 	// save uploaded photo data to sql database
 	@RequestMapping(value = "/data", method = RequestMethod.POST, consumes = "application/JSON")
-	public ResponseEntity<Fotka> saveFotkaData(@RequestBody Fotka fotka) {
-		fotka.setFotografijaFajl("fotke/" + fotka.getFotografijaFajl());
-		fotkaService.save(fotka);
+	public ResponseEntity<Photo> savePhotoData(@RequestBody Photo photo) {
+		photo.setFileOfPhoto("fotke/" + photo.getFileOfPhoto());
+		photoService.save(photo);
 
-		return new ResponseEntity<Fotka>(fotka, HttpStatus.OK);
+		return new ResponseEntity<Photo>(photo, HttpStatus.OK);
 	}
 
 	// get all photos
 	@RequestMapping(value = "/sve", method = RequestMethod.GET)
-	public ResponseEntity<List<Fotka>> getSveFotke() {
-		List<Fotka> sveFotke = null;
-		sveFotke = new ArrayList<Fotka>();
-		sveFotke = fotkaService.findAll();
+	public ResponseEntity<List<Photo>> getAllPhotos() {
+		List<Photo> allPhotos = null;
+		allPhotos = new ArrayList<Photo>();
+		allPhotos = photoService.findAll();
 
-		return new ResponseEntity<List<Fotka>>(sveFotke, HttpStatus.OK);
+		return new ResponseEntity<List<Photo>>(allPhotos, HttpStatus.OK);
 	}
 
 	// delete photo
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-	public ResponseEntity<Fotka> deleteFotka(@PathVariable Long id) {
-		fotkaService.delete(id);
+	public ResponseEntity<Photo> deletePhoto(@PathVariable Long id) {
+		photoService.delete(id);
 
 		return null;
 	}
