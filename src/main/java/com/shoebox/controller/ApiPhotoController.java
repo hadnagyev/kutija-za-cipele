@@ -30,7 +30,7 @@ public class ApiPhotoController {
 
 	// GET photo
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<Photo> getFotka(@RequestParam(value = "currentFotka", required = true) Long id,
+	public ResponseEntity<Photo> getPhoto(@RequestParam(value = "currentFotka", required = true) Long id,
 			@RequestParam(value = "previousFotka", required = false) Integer previous) {
 		Photo photo = null;
 		int hasNextPhoto = -1;
@@ -54,16 +54,16 @@ public class ApiPhotoController {
 			}
 		}
 
-		List<Photo> fotke = new ArrayList<Photo>();
-		fotke = photoService.findAll();
+		List<Photo> photos = new ArrayList<Photo>();
+		photos = photoService.findAll();
 		// if the id of current photo is same as id of the last one sending hasnext=
 		// 0 so next photo is disabled
-		if (fotke.get((fotke.size()) - 1).getId().equals(photo.getId())) {
+		if (photos.get((photos.size()) - 1).getId().equals(photo.getId())) {
 			hasNextPhoto = 0;
 		}
 		// if id of current is same as id of previous, button hasprevious=0
 		// previous photo disabled
-		if (photo.getId().equals(fotke.get(0).getId())) {
+		if (photo.getId().equals(photos.get(0).getId())) {
 			hasPreviousPhoto = 0;
 		}
 
